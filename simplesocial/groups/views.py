@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from groups.models import Group, GroupMember
@@ -51,6 +52,6 @@ class LeaveGroup(LoginRequiredMixin, generic.RedirectView):
             messages.warning(self.request, 'Warning: You are not currently a member of this goup!')
         else:
             membership.delete()
-            messages.success(self.request, 'You have left the group!')
+            messages.success(self.request, 'You have successfully left the group!')
 
         return super().get(request, *args, **kwargs)
